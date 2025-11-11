@@ -1,0 +1,9 @@
+DB_HOST=127.0.0.1
+DB_USER=root
+DB_PASS=
+DB_NAME=watchcraft
+DB_CONN_LIMIT=10
+DB_TIMEZONE=Z
+
+JWT_SECRET=super_geheimes_token
+PORT=3000

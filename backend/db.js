@@ -10,22 +10,29 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: Number(process.env.DB_CONN_LIMIT) || 10,
   queueLimit: 0,
-  // optional: set timezone if needed
   timezone: process.env.DB_TIMEZONE || 'Z'
 });
 
+// query: für SELECT (gibt rows zurück)
 async function query(sql, params = []) {
-  // Wrapper, gibt immer { rows, result } zurück für Komfort
-  const conn = await pool.getConnection();
-  try {
-    const [rows, fields] = await conn.execute(sql, params);
-    return { rows, fields };
-  } finally {
-    conn.release();
-  }
+  const [rows] = await pool.execute(sql, params);
+  return rows;
+}
+
+// executeRaw: für INSERT/UPDATE/DELETE (gibt result-Objekt zurück)
+async function executeRaw(sql, params = []) {
+  const [result] = await pool.execute(sql, params);
+  return result;
+}
+
+// getConnection: für Transaktionen (conn.beginTransaction(), commit(), rollback())
+async function getConnection() {
+  return await pool.getConnection();
 }
 
 module.exports = {
   pool,
-  query
+  query,
+  executeRaw,
+  getConnection
 };
