@@ -1,5 +1,3 @@
--- init_mysql.sql
--- Stelle sicher: Engine = InnoDB (für FK & Transaktionen)
 SET FOREIGN_KEY_CHECKS = 0;
 
 CREATE DATABASE IF NOT EXISTS watchcraft CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
