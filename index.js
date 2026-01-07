@@ -14,7 +14,7 @@ const adminRoutes = require('./backend/routes/admin');
 const sockets = require('./backend/sockets');
 
 const app = express();
-app.use(cors()); // in dev evtl. genauer origin angeben
+app.use(cors()); 
 app.use(express.json());
 
 // API Routen
@@ -24,11 +24,11 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/forum', forumRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Health
+
 app.get('/api/health', (req, res) => res.json({ ok: true }));
 
-// Optional: statische Dateien (wenn du front im gleichen repo bauen willst)
-// app.use(express.static('../frontend/dist'));
+
+
 
 const server = http.createServer(app);
 const io = new Server(server, {
